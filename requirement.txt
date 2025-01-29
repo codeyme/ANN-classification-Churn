@@ -1,5 +1,0 @@
-pandas==2.2.3
-tensorflow==2.18.0
-tensorboard==2.18.0
-streamlit==1.41.1
-scikit-learn>=0.24.0
