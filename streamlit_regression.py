@@ -5,14 +5,14 @@ import pickle
 import pandas as pd
 
 # load the trained model
-model = tf.keras.load_model('regression_model.h5')
+model = tf.keras.models.load_model('regression_model.h5')
 
 #load encoders and scaler
 with open('label_encoder_gender.pkl','rb') as file:
     label_encoder_gender = pickle.load(file)
-with open('onehpt_encoder_geo.pkl','rb') as file:
+with open('onehot_encoder_geo.pkl','rb') as file:
     onehot_encoder_geo = pickle.load(file)
-with open('scaler.pkl','rb') as file:
+with open('scale.pkl','rb') as file:
     scaler = pickle.load(file)
 
 #Streamlit app
@@ -45,7 +45,7 @@ input_data = pd.DataFrame({
 
 #one hot encode geography
 encoded_geo = onehot_encoder_geo.transform([[geography]]).toarray()
-encoded_geo_df = pd.DataFrame(encoded_geo,columns=onehot_encoder_geo.get_feature_names_out([geography]))
+encoded_geo_df = pd.DataFrame(encoded_geo,columns=onehot_encoder_geo.get_feature_names_out(['Geography']))
 
 #combine geography
 input_data = pd.concat([input_data.reset_index(drop=True), encoded_geo_df],axis=1)
